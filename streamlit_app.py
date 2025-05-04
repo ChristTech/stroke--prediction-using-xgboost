@@ -115,9 +115,11 @@ if submit_button:
     st.subheader("🔎 Model Explanation (SHAP Values)")
 
     # SHAP explanation
-    explainer = shap.Explainer(model, input_data)
-    shap_values = explainer(input_data)
+    explainer = shap.TreeExplainer(model)
+    shap_values = explainer.shap_values(input_data)
 
-    fig, ax = plt.subplots(figsize=(10, 6))
-    shap.plots.waterfall(shap_values[0], show=False)
-    st.pyplot(fig)
+    fig, ax = plt.subplots()
+    shap.plots.waterfall(shap.Explanation(values=shap_values[0], 
+                                          base_values=explainer.expected_value, 
+                                          data=input_data.iloc[0]), show=False)
+    st.pyplot(fig, bbox_inches='tight')
