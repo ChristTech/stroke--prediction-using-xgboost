@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 
 # Load trained XGBoost model from JSON
 model = xgb.XGBClassifier()
-model.load_model('xgboost_stroke_model.json')
+model.load_model('xgb_stroke_model.json')
 
 # App title
 st.title("🧠 Adeyinka Stroke Risk Prediction")
